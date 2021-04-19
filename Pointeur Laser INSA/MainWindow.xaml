@@ -10,7 +10,11 @@
         <TabControl>
             <TabItem Header="Configuration des boutons">
                 <Grid Background="#FFE5E5E5">
-                    <Grid Margin="52,0,427,0">
+                    <Grid Margin="108,0,371,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -18,10 +22,18 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="2"/>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="1"/>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="3"/>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="4"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Column="1">
+                            <Label Content="Label"/>
+                        </ComboBox>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1"/>
+                        <Label Content="Carrefour" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Margin="0,29,0,0"/>
+                        <Label Content="Monoprix" HorizontalAlignment="Left" Margin="-1,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.677,0.446" Grid.Row="3"/>
+                        <Label Content="Auchan" HorizontalAlignment="Left" Margin="-1,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.793,0.598" Grid.Row="2"/>
+                        <Label Content="Intermarché" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+                        <Label Content="Casino" HorizontalAlignment="Left" Margin="-1,30,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </Grid>
             </TabItem>
