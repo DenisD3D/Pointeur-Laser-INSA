@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <TabControl>
             <TabItem Header="Configuration des boutons">
                 <Grid Background="#FFE5E5E5">
@@ -25,9 +28,7 @@
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="2" Grid.Column="1"/>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="3" Grid.Column="1"/>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1"/>
-                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Column="1">
-                            <Label Content="Label"/>
-                        </ComboBox>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Column="1"/>
                         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="1" Grid.Column="1"/>
                         <Label Content="Carrefour" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="4" Margin="0,29,0,0"/>
                         <Label Content="Monoprix" HorizontalAlignment="Left" Margin="-1,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.677,0.446" Grid.Row="3"/>
