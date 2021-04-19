@@ -11,9 +11,18 @@
             <TabItem Header="Configuration des boutons">
                 <Grid Background="#FFE5E5E5">
                     <Grid Margin="52,0,427,0">
-                        <ComboBox HorizontalAlignment="Left" Margin="0,71,0,0" VerticalAlignment="Top" Width="120"/>
-                        <ComboBox HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
-                        <ComboBox HorizontalAlignment="Left" Margin="0,71,0,0" VerticalAlignment="Top" Width="120"/>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="2"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="1"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="3"/>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="4"/>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="">
