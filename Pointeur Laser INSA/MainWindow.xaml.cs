@@ -24,5 +24,10 @@ namespace Pointeur_Laser_INSA
         {
             InitializeComponent();
         }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
