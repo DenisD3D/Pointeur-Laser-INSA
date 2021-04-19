@@ -61,5 +61,10 @@ namespace Pointeur_Laser_INSA
                 textbox1.Text = "";
             }
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

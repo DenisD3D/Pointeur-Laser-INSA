@@ -5,10 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pointeur_Laser_INSA"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        Closing="Window_Closing">
-    <Grid Loaded="Grid_Loaded">
-        <Label x:Name="label1" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="368" Width="780" Background="#FFE7E7E7"/>
-        <TextBox x:Name="textbox1" HorizontalAlignment="Center" Margin="0,383,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="780" Height="25" TextAlignment="Left" KeyDown="textbox1_KeyDown"/>
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Configuration des boutons">
+                <Grid Background="#FFE5E5E5">
+                    <Grid Margin="52,0,427,0">
+                        <ComboBox HorizontalAlignment="Left" Margin="0,71,0,0" VerticalAlignment="Top" Width="120"/>
+                        <ComboBox HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged"/>
+                        <ComboBox HorizontalAlignment="Left" Margin="0,71,0,0" VerticalAlignment="Top" Width="120"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
