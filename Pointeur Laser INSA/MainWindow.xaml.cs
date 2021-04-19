@@ -40,7 +40,10 @@ namespace Pointeur_Laser_INSA
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            bluetoothManager.close();
+            if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+            {
+                bluetoothManager.close();
+            }
         }
 
         private void textbox1_KeyDown(object sender, KeyEventArgs e)
