@@ -16,55 +16,80 @@ namespace Pointeur_Laser_INSA
             InitializeComponent();
         }
 
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
         {
-            label1.Content = "Available Com port : ";
-            foreach (string port in BluetoothManager.GetComsPorts())
+            foreach(string port in BluetoothManager.GetComsPorts())
             {
-                label1.Content += port + " ";
+                PortComboBox.Items.Add(port);
             }
-            label1.Content += "\n";
+        }
+
+        private void Connect_Click(object sender, RoutedEventArgs e)
+        {
+            bluetoothManager = new BluetoothManager(PortComboBox.SelectedValue.ToString(), Dispatcher, onData, onError);
         }
 
         public void onData(string message)
         {
-            if (message.StartsWith("ILP+JOYSTICK="))
-                return;
-            label1.Content += message + "\n";
+            test.Content = message;
+            
         }
 
         public void onError(string message)
         {
-            label1.Content += message + "\n";
+            test.Content = message;
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
-            {
-                bluetoothManager.close();
-            }
-        }
+        /*
+private void Grid_Loaded(object sender, RoutedEventArgs e)
+{
+  label1.Content = "Available Com port : ";
+  foreach (string port in BluetoothManager.GetComsPorts())
+  {
+      label1.Content += port + " ";
+  }
+  label1.Content += "\n";
+}
 
-        private void textbox1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                if (bluetoothManager == null || !bluetoothManager._continue || !bluetoothManager._serialPort.IsOpen)
-                {
-                    label1.Content += "Connection to " + textbox1.Text + "\n";
-                    bluetoothManager = new BluetoothManager(textbox1.Text, Dispatcher, onData, onError);
-                }
-                else {
-                    bluetoothManager.Write(textbox1.Text);
-                }
-                textbox1.Text = "";
-            }
-        }
+public void onData(string message)
+{
+  if (message.StartsWith("ILP+JOYSTICK="))
+      return;
+  label1.Content += message + "\n";
+}
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+public void onError(string message)
+{
+  label1.Content += message + "\n";
+}
 
-        }
+private void Window_Closing(object sender, CancelEventArgs e)
+{
+  if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+  {
+      bluetoothManager.close();
+  }
+}
+
+private void textbox1_KeyDown(object sender, KeyEventArgs e)
+{
+  if (e.Key == Key.Enter)
+  {
+      if (bluetoothManager == null || !bluetoothManager._continue || !bluetoothManager._serialPort.IsOpen)
+      {
+          label1.Content += "Connection to " + textbox1.Text + "\n";
+          bluetoothManager = new BluetoothManager(textbox1.Text, Dispatcher, onData, onError);
+      }
+      else {
+          bluetoothManager.Write(textbox1.Text);
+      }
+      textbox1.Text = "";
+  }
+}
+
+private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+{
+
+}*/
     }
 }

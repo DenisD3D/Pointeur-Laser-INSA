@@ -8,12 +8,18 @@
         Title="Configuration du pointeur laser" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="793*"/>
         </Grid.ColumnDefinitions>
-        <TabControl>
-          <TabItem Header="Acceuil">
-            <Grid Background="#FFE5E5E5"/>
-          </TabItem>
+        <TabControl Grid.ColumnSpan="2">
+            <TabItem Header="Acceuil">
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox x:Name="PortComboBox" HorizontalAlignment="Left" Margin="90,19,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Loaded"/>
+                    <Label Content="PORT" HorizontalAlignment="Left" Margin="22,17,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="Connect" Content="Connect" HorizontalAlignment="Left" Margin="234,19,0,0" VerticalAlignment="Top" Click="Connect_Click"/>
+                    <Label x:Name="test" Content="Label" HorizontalAlignment="Left" Margin="68,88,0,0" VerticalAlignment="Top" Width="465" Height="380"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="Configuration des boutons">
                 <Grid Background="#FFE5E5E5">
                     <Grid Margin="108,0,371,0">
@@ -48,7 +54,7 @@
             <TabItem Header="À propos">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
-            
+
         </TabControl>
     </Grid>
 </Window>
