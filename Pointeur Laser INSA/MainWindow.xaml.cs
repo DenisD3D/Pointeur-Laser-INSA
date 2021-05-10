@@ -26,18 +26,37 @@ namespace Pointeur_Laser_INSA
 
         private void Connect_Click(object sender, RoutedEventArgs e)
         {
-            bluetoothManager = new BluetoothManager(PortComboBox.SelectedValue.ToString(), Dispatcher, onData, onError);
+            if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+            {
+                bluetoothManager.close();
+            }
+
+            string port = "";
+            if (PortComboBox.SelectedValue != null) port = PortComboBox.SelectedValue.ToString();
+            bluetoothManager = new BluetoothManager(port, Dispatcher, onData, onError);
         }
 
         public void onData(string message)
         {
             test.Content = message;
             
+            if(message=="ILP+B1=0\r") 
+            {
+                MessageBox.Show("b1 pressed", "An error occured", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void onError(string message)
         {
-            test.Content = message;
+            MessageBox.Show(message, "An error occured", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+            {
+                bluetoothManager.close();
+            }
         }
 
         /*

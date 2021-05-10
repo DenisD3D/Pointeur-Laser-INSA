@@ -33,10 +33,10 @@ namespace Pointeur_Laser_INSA
                 _continue = true;
                 readThread.Start();
             }
-            catch
+            catch (Exception ex)
             {
                 _continue = false;
-                dispatcher.Invoke(onError, "Can't connect to the specified port");
+                dispatcher.Invoke(onError, "Can't connect : " + ex.Message);
             }
 
         }

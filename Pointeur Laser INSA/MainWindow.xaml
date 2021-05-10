@@ -5,16 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pointeur_Laser_INSA"
         mc:Ignorable="d"
-        Title="Configuration du pointeur laser" Height="450" Width="800">
+        Title="Configuration du pointeur laser" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="47*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="793*"/>
         </Grid.ColumnDefinitions>
-        <TabControl Grid.ColumnSpan="2">
+        <TabControl Grid.ColumnSpan="2" Grid.RowSpan="2">
             <TabItem Header="Acceuil">
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="PortComboBox" HorizontalAlignment="Left" Margin="90,19,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Loaded"/>
+
+                  <ComboBox x:Name="PortComboBox" HorizontalAlignment="Left" Margin="90,19,0,0" VerticalAlignment="Top" Width="120" Loaded="ComboBox_Loaded"/>
                     <Label Content="PORT" HorizontalAlignment="Left" Margin="22,17,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="Connect" Content="Connect" HorizontalAlignment="Left" Margin="234,19,0,0" VerticalAlignment="Top" Click="Connect_Click"/>
                     <Label x:Name="test" Content="Label" HorizontalAlignment="Left" Margin="68,88,0,0" VerticalAlignment="Top" Width="465" Height="380"/>
@@ -54,6 +59,7 @@
             <TabItem Header="À propos">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
+            <Label Content="Label"/>
 
         </TabControl>
     </Grid>
