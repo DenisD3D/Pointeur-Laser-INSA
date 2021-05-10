@@ -16,11 +16,15 @@ namespace Pointeur_Laser_INSA
             InitializeComponent();
         }
 
-        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        private void portComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             foreach(string port in BluetoothManager.GetComsPorts())
             {
-                PortComboBox.Items.Add(port);
+                portComboBox.Items.Add(port);
+                if(port == Settings1.Default.Port)
+                {
+                    portComboBox.SelectedValue = port;
+                }
             }
         }
 
@@ -32,7 +36,7 @@ namespace Pointeur_Laser_INSA
             }
 
             string port = "";
-            if (PortComboBox.SelectedValue != null) port = PortComboBox.SelectedValue.ToString();
+            if (portComboBox.SelectedValue != null) port = portComboBox.SelectedValue.ToString();
             bluetoothManager = new BluetoothManager(port, Dispatcher, onData, onError);
         }
 
@@ -57,6 +61,12 @@ namespace Pointeur_Laser_INSA
             {
                 bluetoothManager.close();
             }
+            Settings1.Default.Save();
+        }
+
+        private void portComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Settings1.Default.Port = portComboBox.SelectedValue.ToString();
         }
 
         /*
