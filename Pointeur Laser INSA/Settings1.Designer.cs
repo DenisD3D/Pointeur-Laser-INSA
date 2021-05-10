@@ -34,5 +34,17 @@ namespace Pointeur_Laser_INSA {
                 this["Port"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int B1Key {
+            get {
+                return ((int)(this["B1Key"]));
+            }
+            set {
+                this["B1Key"] = value;
+            }
+        }
     }
 }

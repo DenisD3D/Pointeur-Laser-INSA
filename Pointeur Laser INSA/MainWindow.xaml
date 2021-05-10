@@ -18,11 +18,15 @@
         <TabControl Grid.ColumnSpan="2" Grid.RowSpan="2">
             <TabItem Header="Acceuil">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="92*"/>
+                        <ColumnDefinition Width="305*"/>
+                    </Grid.ColumnDefinitions>
 
-                    <ComboBox x:Name="portComboBox" HorizontalAlignment="Left" Margin="90,19,0,0" VerticalAlignment="Top" Width="120" Loaded="portComboBox_Loaded" SelectionChanged="portComboBox_SelectionChanged"/>
+                    <ComboBox x:Name="portComboBox" HorizontalAlignment="Left" Margin="90,19,0,0" VerticalAlignment="Top" Width="120" Loaded="portComboBox_Loaded" SelectionChanged="portComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
                     <Label Content="PORT" HorizontalAlignment="Left" Margin="22,17,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="Connect" Content="Connect" HorizontalAlignment="Left" Margin="234,19,0,0" VerticalAlignment="Top" Click="Connect_Click"/>
-                    <Label x:Name="test" Content="Label" HorizontalAlignment="Left" Margin="68,88,0,0" VerticalAlignment="Top" Width="465" Height="380"/>
+                    <Button x:Name="Connect" Content="Connect" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" Click="Connect_Click" Grid.Column="1"/>
+                    <Label x:Name="test" Content="Label" HorizontalAlignment="Left" Margin="68,88,0,0" VerticalAlignment="Top" Width="465" Height="380" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Configuration des boutons">
@@ -53,7 +57,13 @@
                         <Label Content="Bouton 3" HorizontalAlignment="Left" Margin="-1,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.793,0.598" Grid.Row="2"/>
                         <Label Content="Bouton 2" HorizontalAlignment="Left" Margin="0,30,0,0" VerticalAlignment="Top" Grid.Row="1"/>
                         <Label Content="Bouton 1" HorizontalAlignment="Left" Margin="-1,30,0,0" VerticalAlignment="Top"/>
+                        <ComboBox VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Left" Width="120">
+                            <ComboBoxItem Content="Left"/>
+                            <ComboBoxItem Content="Right"/>
+                        </ComboBox>
+                        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Grid.Row="4" Grid.Column="1"/>
                     </Grid>
+                    <Button x:Name="button1_key" Content="Button" HorizontalAlignment="Left" Margin="428,31,0,0" VerticalAlignment="Top" Click="button1_key_Click" Width="200" KeyDown="button1_key_KeyDown" Loaded="button1_key_Loaded"/>
                 </Grid>
             </TabItem>
             <TabItem Header="À propos">

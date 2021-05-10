@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace Pointeur_Laser_INSA
 {
@@ -44,9 +46,18 @@ namespace Pointeur_Laser_INSA
         {
             test.Content = message;
             
-            if(message=="ILP+B1=0\r") 
+            if(message == "ILP+B1=0\r") 
             {
-                MessageBox.Show("b1 pressed", "An error occured", MessageBoxButton.OK, MessageBoxImage.Error);
+                InputSimulator inputSimulator = new InputSimulator();
+                inputSimulator.Keyboard.KeyPress((VirtualKeyCode)Settings1.Default.B1Key);
+            }
+            else if (message == "ILP+B2=0\r")
+            {
+                MessageBox.Show("b2 pressed", "BTN pressed", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            } else if (message == "ILP+B3=0\r")
+            {
+                MessageBox.Show("b3 pressed", "BTN pressed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -69,56 +80,21 @@ namespace Pointeur_Laser_INSA
             Settings1.Default.Port = portComboBox.SelectedValue.ToString();
         }
 
-        /*
-private void Grid_Loaded(object sender, RoutedEventArgs e)
-{
-  label1.Content = "Available Com port : ";
-  foreach (string port in BluetoothManager.GetComsPorts())
-  {
-      label1.Content += port + " ";
-  }
-  label1.Content += "\n";
-}
+        private void button1_key_Click(object sender, RoutedEventArgs e)
+        {
+            button1_key.Content = "<Press key>";
+        }
 
-public void onData(string message)
-{
-  if (message.StartsWith("ILP+JOYSTICK="))
-      return;
-  label1.Content += message + "\n";
-}
+        private void button1_key_KeyDown(object sender, KeyEventArgs e)
+        {
+            int keycode = System.Windows.Input.KeyInterop.VirtualKeyFromKey(e.Key);
+            button1_key.Content = e.Key.ToString();
+            Settings1.Default.B1Key = keycode;
+        }
 
-public void onError(string message)
-{
-  label1.Content += message + "\n";
-}
-
-private void Window_Closing(object sender, CancelEventArgs e)
-{
-  if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
-  {
-      bluetoothManager.close();
-  }
-}
-
-private void textbox1_KeyDown(object sender, KeyEventArgs e)
-{
-  if (e.Key == Key.Enter)
-  {
-      if (bluetoothManager == null || !bluetoothManager._continue || !bluetoothManager._serialPort.IsOpen)
-      {
-          label1.Content += "Connection to " + textbox1.Text + "\n";
-          bluetoothManager = new BluetoothManager(textbox1.Text, Dispatcher, onData, onError);
-      }
-      else {
-          bluetoothManager.Write(textbox1.Text);
-      }
-      textbox1.Text = "";
-  }
-}
-
-private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-{
-
-}*/
+        private void button1_key_Loaded(object sender, RoutedEventArgs e)
+        {
+            button1_key.Content = System.Windows.Input.KeyInterop.KeyFromVirtualKey(Settings1.Default.B1Key).ToString();
+        }
     }
 }
