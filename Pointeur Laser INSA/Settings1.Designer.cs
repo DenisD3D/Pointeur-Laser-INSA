@@ -46,5 +46,113 @@ namespace Pointeur_Laser_INSA {
                 this["B1Key"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int B2Key {
+            get {
+                return ((int)(this["B2Key"]));
+            }
+            set {
+                this["B2Key"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int B3Key {
+            get {
+                return ((int)(this["B3Key"]));
+            }
+            set {
+                this["B3Key"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int B4Key {
+            get {
+                return ((int)(this["B4Key"]));
+            }
+            set {
+                this["B4Key"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int B5Key {
+            get {
+                return ((int)(this["B5Key"]));
+            }
+            set {
+                this["B5Key"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public string B1Action {
+            get {
+                return ((string)(this["B1Action"]));
+            }
+            set {
+                this["B1Action"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public string B2Action {
+            get {
+                return ((string)(this["B2Action"]));
+            }
+            set {
+                this["B2Action"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public string B3Action {
+            get {
+                return ((string)(this["B3Action"]));
+            }
+            set {
+                this["B3Action"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public string B4Action {
+            get {
+                return ((string)(this["B4Action"]));
+            }
+            set {
+                this["B4Action"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public string B5Action {
+            get {
+                return ((string)(this["B5Action"]));
+            }
+            set {
+                this["B5Action"] = value;
+            }
+        }
     }
 }
