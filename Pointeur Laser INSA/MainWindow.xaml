@@ -3,71 +3,66 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Pointeur_Laser_INSA"
         mc:Ignorable="d"
         Title="Configuration du pointeur laser" Height="450" Width="800" Closing="Window_Closing">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="47*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="793*"/>
-        </Grid.ColumnDefinitions>
-        <TabControl Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <TabItem Header="Acceuil">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="92*"/>
-                        <ColumnDefinition Width="305*"/>
-                    </Grid.ColumnDefinitions>
+    <TabControl>
+        <TabItem Header="Acceuil">
+            <Grid Background="#FFE5E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="75*"/>
+                </Grid.RowDefinitions>
 
-                    <ComboBox x:Name="portComboBox" HorizontalAlignment="Left" Margin="90,19,0,0" VerticalAlignment="Top" Width="120" Loaded="portComboBox_Loaded" SelectionChanged="portComboBox_SelectionChanged" Grid.ColumnSpan="2"/>
-                    <Label Content="PORT" HorizontalAlignment="Left" Margin="22,17,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="Connect" Content="Connect" HorizontalAlignment="Left" Margin="50,19,0,0" VerticalAlignment="Top" Click="Connect_Click" Grid.Column="1"/>
-                    <Label x:Name="test" Content="Label" HorizontalAlignment="Left" Margin="68,88,0,0" VerticalAlignment="Top" Width="465" Height="380" Grid.ColumnSpan="2"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Configuration des boutons">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25*" />
-                        <ColumnDefinition Width="25*" />
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    
-                    <Label Content="Bouton 1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-                    <Label Content="Bouton 2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
-                    <Label Content="Bouton 3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
-                    <Label Content="Bouton 4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
-                    <Label Content="Bouton 5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
+                <ComboBox x:Name="portComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="160,0,0,0" Grid.Column="0" Grid.Row="0" Loaded="portComboBox_Loaded" SelectionChanged="portComboBox_SelectionChanged"/>
+                <Label Content="Communication port : " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="22,0,0,0" Grid.Column="0" Grid.Row="0"/>
+                <Button x:Name="connectButton" Content=" Connect " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="300,0,0,0" Click="connectButton_Click"/>
+                <Button x:Name="refreshComPortsButton" Content=" Refresh ports list " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="600,0,0,0" Click="refreshComPortsButton_Click"/>
 
-                    <ComboBox x:Name="selectActionBox_1" Tag="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="0" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                    <ComboBox x:Name="selectActionBox_2" Tag="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="1" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                    <ComboBox x:Name="selectActionBox_3" Tag="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="2" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                    <ComboBox x:Name="selectActionBox_4" Tag="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="3" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                    <ComboBox x:Name="selectActionBox_5" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="4" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
+                <Label Content="Console : " Grid.Column="0" Grid.Row="1" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBox x:Name="consoleTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,30,10,10" Grid.Column="0" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" BorderThickness="1,1,1,1" Text="Press connect to start" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Configuration des boutons">
+            <Grid Background="#FFE5E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                    <Button x:Name="keySelectButton_1" Tag="1" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="0" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
-                    <Button x:Name="keySelectButton_2" Tag="2" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="1" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
-                    <Button x:Name="keySelectButton_3" Tag="3" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="2" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
-                    <Button x:Name="keySelectButton_4" Tag="4" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="3" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
-                    <Button x:Name="keySelectButton_5" Tag="5" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="4" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="À propos">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <Label Content="Label"/>
+                <Label Content="Bouton 1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                <Label Content="Bouton 2" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                <Label Content="Bouton 3" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"/>
+                <Label Content="Bouton 4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
+                <Label Content="Bouton 5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
 
-        </TabControl>
-    </Grid>
+                <ComboBox x:Name="selectActionBox_1" Tag="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="0" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
+                <ComboBox x:Name="selectActionBox_2" Tag="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="1" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
+                <ComboBox x:Name="selectActionBox_3" Tag="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="2" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
+                <ComboBox x:Name="selectActionBox_4" Tag="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="3" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
+                <ComboBox x:Name="selectActionBox_5" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="4" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
+
+                <Button x:Name="keySelectButton_1" Tag="1" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="0" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
+                <Button x:Name="keySelectButton_2" Tag="2" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="1" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
+                <Button x:Name="keySelectButton_3" Tag="3" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="2" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
+                <Button x:Name="keySelectButton_4" Tag="4" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="3" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
+                <Button x:Name="keySelectButton_5" Tag="5" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="4" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="À propos">
+            <Grid Background="#FFE5E5E5">
+                <Label Content="Projet 1A 2020 - 2021       Evan Berre - Denis Daviaud - Clémence Facca - Antoine Grand "/>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>

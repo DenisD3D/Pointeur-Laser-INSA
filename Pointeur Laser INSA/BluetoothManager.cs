@@ -39,7 +39,7 @@ namespace Pointeur_Laser_INSA
                 dispatcher.Invoke(onError, "Can't connect : " + ex.Message);
             }
 
-        }
+        }       
 
         public void Read()
         {
@@ -54,6 +54,10 @@ namespace Pointeur_Laser_INSA
                     }
                 }
                 catch (TimeoutException) { }
+                catch (OperationCanceledException)
+                {
+                    _continue = false;
+                }
             }
         }
 
