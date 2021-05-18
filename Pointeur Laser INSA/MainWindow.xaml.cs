@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -150,8 +152,12 @@ namespace Pointeur_Laser_INSA
             } 
             else if(message.StartsWith("ILP+JOYSTICK"))
             {
-                //Ignore for now
-                return;
+                string[] pos = message.Substring(13).Split(",");
+                int X = int.Parse(pos[0]), Y = int.Parse(pos[1]);
+                if (X != 0 || Y != 0)
+                {
+                    LinearSmoothMove(new System.Drawing.Point(X, Y));
+                }
             }
             else if (message == "ILP+B1=0\r")
             {
@@ -160,8 +166,7 @@ namespace Pointeur_Laser_INSA
             }
             else if (message == "ILP+B2=0\r")
             {
-                MessageBox.Show("b2 pressed", "BTN pressed", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                //LinearSmoothMove(new System.Drawing.Point(100, 100), 10);
             }
             else if (message == "ILP+B3=0\r")
             {
@@ -170,6 +175,37 @@ namespace Pointeur_Laser_INSA
 
             consoleTextBox.Text += message + "\n";
             consoleTextBox.PageDown();
+        }
+
+        public void LinearSmoothMove(System.Drawing.Point addPosition)
+        {
+            Win32.POINT start;
+            if(Win32.GetCursorPos(out start))
+            {
+                PointF iterPoint = new PointF(start.X, start.Y);
+
+                PointF newPosition = new PointF(start.X + addPosition.X, start.Y + addPosition.Y);
+
+                // Find the slope of the line segment defined by start and newPosition
+                PointF slope = new PointF((float)(newPosition.X - start.X), (float)(newPosition.Y - start.Y));
+
+                int steps = 10;
+                // Divide by the number of steps
+                slope.X = slope.X / steps;
+                slope.Y = slope.Y / steps;
+
+                // Move the mouse to each iterative point.
+                for (int i = 0; i < steps; i++)
+                {
+                    iterPoint = new PointF(iterPoint.X + slope.X, iterPoint.Y + slope.Y);
+                    System.Drawing.Point final = System.Drawing.Point.Round(iterPoint);
+                    Win32.SetCursorPos(final.X, final.Y);
+                    Thread.Sleep(10);
+                }
+
+                // Move the mouse to the final destination.
+                Win32.SetCursorPos((int)newPosition.X, (int)newPosition.Y);
+            }
         }
 
         public void onError(string message)

@@ -58,6 +58,10 @@ namespace Pointeur_Laser_INSA
                 {
                     _continue = false;
                 }
+                catch (InvalidOperationException)
+                {
+                    _continue = false;
+                }
             }
         }
 
