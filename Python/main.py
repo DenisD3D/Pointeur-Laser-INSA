@@ -4,6 +4,9 @@ import time
 import serial
 import pyautogui
 
+# To add :
+# Logout command
+
 # Commands :
 # ILP => OK (Handshake)
 # ILP+LASERMODE? => Get laser mode
@@ -12,6 +15,8 @@ import pyautogui
 # ILP+LASER => Toggle laser state
 # ILP+DEADZONE=X => Set deadzone value (X = [0, 100]. If invalid, become 0, If out of bound become closest (0 or 100))
 # ILP+DEADZONE? => Return deadzone value
+# ILP+LASERBUTTON? => Get laser button
+# ILP+LASERBUTTON=(1/2/3/4/5) => Set button id used for the laser
 
 
 # Answers :
@@ -24,7 +29,7 @@ import pyautogui
 
 # While not connected, lasermode 0 default to 1 to be usable as a classic pointer
 
-port = "COM6"
+port = "COM4"
 
 connected = False
 require_stop = False
@@ -38,6 +43,7 @@ def handle_data(data):
     elif data.startswith("ILP+JOYSTICK"):
         pos = data.split('=')[1].split(',')
         pyautogui.moveRel(int(pos[0]), int(pos[1]))
+
     else:
         print('\r' + data + "\n> ", end='')
 
