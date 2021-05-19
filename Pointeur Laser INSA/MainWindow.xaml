@@ -22,7 +22,7 @@
                 <Button x:Name="refreshComPortsButton" Content=" Refresh ports list " HorizontalAlignment="Left" VerticalAlignment="Center" Margin="600,0,0,0" Click="refreshComPortsButton_Click"/>
 
                 <Label Content="Console : " Grid.Column="0" Grid.Row="1" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox x:Name="consoleTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,30,10,10" Grid.Column="0" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" BorderThickness="1,1,1,1" Text="Press connect to start" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"/>
+                <TextBox x:Name="consoleTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,30,10,10" Grid.Column="0" Grid.Row="1" Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderBrush="Black" BorderThickness="1,1,1,1" Text="Press connect to start" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" />
             </Grid>
         </TabItem>
         <TabItem Header="Configuration des boutons">

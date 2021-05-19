@@ -19,8 +19,10 @@ namespace Pointeur_Laser_INSA
     {
         BluetoothManager bluetoothManager;
         List<ActionData> ListData = new List<ActionData>();
-        bool connection_validated = false;
-        Thread connectThread;
+        bool connection_validated = false, need_cursor_update = false;
+        Thread connectThread, cursorThread;
+        InputSimulator inputSimulator = new InputSimulator();
+        int next_X, next_Y;
 
         public MainWindow()
         {
@@ -153,15 +155,18 @@ namespace Pointeur_Laser_INSA
             else if(message.StartsWith("ILP+JOYSTICK"))
             {
                 string[] pos = message.Substring(13).Split(",");
-                int X = int.Parse(pos[0]), Y = int.Parse(pos[1]);
-                if (X != 0 || Y != 0)
+                next_X = int.Parse(pos[0]);
+                next_Y = int.Parse(pos[1]);
+                need_cursor_update = true;
+
+                if (cursorThread == null || !cursorThread.IsAlive)
                 {
-                    LinearSmoothMove(new System.Drawing.Point(X, Y));
+                    cursorThread = new Thread(CursorMove);
+                    cursorThread.Start();
                 }
             }
             else if (message == "ILP+B1=0\r")
             {
-                InputSimulator inputSimulator = new InputSimulator();
                 inputSimulator.Keyboard.KeyPress((VirtualKeyCode)Settings1.Default.B1Key);
             }
             else if (message == "ILP+B2=0\r")
@@ -172,9 +177,26 @@ namespace Pointeur_Laser_INSA
             {
                 MessageBox.Show("b3 pressed", "BTN pressed", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            else if (message == "ILP+B4=0\r")
+            {
+                MessageBox.Show("b4 pressed", "BTN pressed", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (message == "ILP+B5=0\r")
+            {
+                inputSimulator.Mouse.LeftButtonClick();
+            }
 
             consoleTextBox.Text += message + "\n";
             consoleTextBox.PageDown();
+        }
+
+        public void CursorMove()
+        {
+            while (need_cursor_update)
+            {
+                need_cursor_update = false;
+                LinearSmoothMove(new System.Drawing.Point(next_X, next_Y));
+            }
         }
 
         public void LinearSmoothMove(System.Drawing.Point addPosition)
