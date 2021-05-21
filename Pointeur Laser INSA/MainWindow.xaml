@@ -29,7 +29,7 @@
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="30*" />
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -46,11 +46,11 @@
                 <Label Content="Bouton 4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"/>
                 <Label Content="Bouton 5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0"/>
 
-                <ComboBox x:Name="selectActionBox_1" Tag="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="0" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                <ComboBox x:Name="selectActionBox_2" Tag="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="1" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                <ComboBox x:Name="selectActionBox_3" Tag="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="2" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                <ComboBox x:Name="selectActionBox_4" Tag="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="3" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
-                <ComboBox x:Name="selectActionBox_5" Tag="5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Grid.Row="4" Grid.Column="1" Height="22" Grid.ColumnSpan="2" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_Loaded_SelectionChanged"/>
+                <ComboBox x:Name="selectActionBox_1" Tag="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Height="22" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_SelectionChanged" Grid.RowSpan="1"/>
+                <ComboBox x:Name="selectActionBox_2" Tag="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Height="22" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_SelectionChanged" Grid.RowSpan="1"/>
+                <ComboBox x:Name="selectActionBox_3" Tag="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Height="22" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_SelectionChanged" Grid.RowSpan="1"/>
+                <ComboBox x:Name="selectActionBox_4" Tag="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Height="22" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_SelectionChanged" Grid.RowSpan="1"/>
+                <ComboBox x:Name="selectActionBox_5" Tag="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Height="22" Loaded="ActionBox_Loaded" SelectionChanged="ActionBox_SelectionChanged" Grid.RowSpan="1"/>
 
                 <Button x:Name="keySelectButton_1" Tag="1" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="0" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
                 <Button x:Name="keySelectButton_2" Tag="2" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="1" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>

@@ -27,10 +27,10 @@ namespace Pointeur_Laser_INSA
         public MainWindow()
         {
             InitializeComponent(); 
-            ListData.Add(new ActionData { Id = "none", Display = "None" });
-            ListData.Add(new ActionData { Id = "key", Display = "Simulate key press" });
-            ListData.Add(new ActionData { Id = "black_screen", Display = "Display a black screen" });
-            ListData.Add(new ActionData { Id = "file", Display = "Execute a custom script" });
+            ListData.Add(new ActionData { Id = "none", Display = "Aucun" });
+            ListData.Add(new ActionData { Id = "key", Display = "Assigner une touche du clavier" });
+            ListData.Add(new ActionData { Id = "black_screen", Display = "Afficher un écran blanc" });
+            ListData.Add(new ActionData { Id = "file", Display = "Exécuter un script" });
         }
 
         //Home page
@@ -129,7 +129,7 @@ namespace Pointeur_Laser_INSA
             b.Visibility = is_visible ? Visibility.Visible : Visibility.Hidden;
         }
 
-        private void ActionBox_Loaded_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ActionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = e.Source as ComboBox;
             Settings1.Default["B" + comboBox.Tag + "Action"] = comboBox.SelectedValue.ToString();
