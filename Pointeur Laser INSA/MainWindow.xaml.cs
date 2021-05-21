@@ -19,8 +19,8 @@ namespace Pointeur_Laser_INSA
     {
         BluetoothManager bluetoothManager;
         List<ActionData> ListData = new List<ActionData>();
-        bool connection_validated = false, need_cursor_update = false;
-        Thread connectThread, cursorThread;
+        bool connection_validated = false, need_cursor_update = false, deadzone_need_wait = false;
+        Thread connectThread, cursorThread, deadzoneThread;
         InputSimulator inputSimulator = new InputSimulator();
         int next_X, next_Y;
 
@@ -205,11 +205,19 @@ namespace Pointeur_Laser_INSA
 
         private void deadzoneSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
-            {
-                bluetoothManager.Write("ILP+DEADZONE=" + (int)deadzoneSlider.Value);
-            }
+            if (Settings1.Default.Deadzone == (int)deadzoneSlider.Value)
+                return;
+
+
             Settings1.Default.Deadzone = (int)deadzoneSlider.Value;
+
+            deadzone_need_wait = true;
+
+            if (deadzoneThread == null || !deadzoneThread.IsAlive)
+            {
+                deadzoneThread = new Thread(SendDeadzoneUpdate);
+                deadzoneThread.Start();
+            }
         }
 
         private void deadzoneSlider_Loaded(object sender, RoutedEventArgs e)
@@ -263,6 +271,22 @@ namespace Pointeur_Laser_INSA
                     return;
             }
             consoleTextBox.Text += "No answer\n";
+        }
+
+        private void SendDeadzoneUpdate()
+        {
+            while(deadzone_need_wait)
+            {
+                deadzone_need_wait = false;
+                Thread.Sleep(1500);
+            }
+
+
+            if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+            {
+                bluetoothManager.Write("ILP+DEADZONE=" + (int)deadzoneSlider.Value);
+            }
+
         }
     }
 }
