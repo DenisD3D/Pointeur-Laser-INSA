@@ -203,6 +203,11 @@ namespace Pointeur_Laser_INSA
             }
         }
 
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
+
         public void LinearSmoothMove(System.Drawing.Point addPosition)
         {
             Win32.POINT start;
