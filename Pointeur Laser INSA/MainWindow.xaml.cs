@@ -183,7 +183,11 @@ namespace Pointeur_Laser_INSA
             }
             else if (message == "ILP+B5=0\r")
             {
-                inputSimulator.Mouse.LeftButtonClick();
+                inputSimulator.Mouse.LeftButtonDown();
+            }
+            else if (message == "ILP+B5=1\r")
+            {
+                inputSimulator.Mouse.LeftButtonUp();
             }
 
             consoleTextBox.Text += message + "\n";
