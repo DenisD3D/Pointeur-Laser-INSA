@@ -154,5 +154,17 @@ namespace Pointeur_Laser_INSA {
                 this["B5Action"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int Deadzone {
+            get {
+                return ((int)(this["Deadzone"]));
+            }
+            set {
+                this["Deadzone"] = value;
+            }
+        }
     }
 }

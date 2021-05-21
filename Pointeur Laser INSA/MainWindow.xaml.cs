@@ -203,9 +203,18 @@ namespace Pointeur_Laser_INSA
             }
         }
 
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void deadzoneSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+            {
+                bluetoothManager.Write("ILP+DEADZONE=" + (int)deadzoneSlider.Value);
+            }
+            Settings1.Default.Deadzone = (int)deadzoneSlider.Value;
+        }
 
+        private void deadzoneSlider_Loaded(object sender, RoutedEventArgs e)
+        {
+            deadzoneSlider.Value = Settings1.Default.Deadzone;
         }
 
         public void LinearSmoothMove(System.Drawing.Point addPosition)

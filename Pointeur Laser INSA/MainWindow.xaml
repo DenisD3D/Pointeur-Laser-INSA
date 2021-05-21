@@ -59,8 +59,9 @@
                 <Button x:Name="keySelectButton_3" Tag="3" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="2" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
                 <Button x:Name="keySelectButton_4" Tag="4" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="3" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
                 <Button x:Name="keySelectButton_5" Tag="5" Visibility="Hidden" Content="No key selected" HorizontalAlignment="Left" VerticalAlignment="Center" Width="200" Grid.Row="4" Grid.Column="2" Click="KeySelectButton_Click" KeyDown="KeySelectButton_KeyDown" Loaded="KeySelectButton_Loaded"/>
-                
-                <Slider Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="5" VerticalAlignment="Center" ValueChanged="Slider_ValueChanged"/>
+
+                <Slider x:Name="deadzoneSlider" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="5" VerticalAlignment="Center" ValueChanged="deadzoneSlider_ValueChanged" Maximum="100" SmallChange="1" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Loaded="deadzoneSlider_Loaded"/>
+                <Label Content="{Binding ElementName=deadzoneSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="N0" Grid.Column="2" HorizontalAlignment="Left" Margin="10,21,0,0" Grid.Row="5" VerticalAlignment="Top"/>
             </Grid>
         </TabItem>
       <TabItem Header="À propos">
