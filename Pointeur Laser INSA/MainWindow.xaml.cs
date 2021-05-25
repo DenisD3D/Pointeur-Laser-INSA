@@ -167,6 +167,7 @@ namespace Pointeur_Laser_INSA
             }
             else if (message == "ILP+B1=0\r")
             {
+                ProcessButtonPress(1);
                 inputSimulator.Keyboard.KeyPress((VirtualKeyCode)Settings1.Default.B1Key);
             }
             else if (message == "ILP+B2=0\r")
@@ -192,6 +193,16 @@ namespace Pointeur_Laser_INSA
 
             consoleTextBox.Text += message + "\n";
             consoleTextBox.PageDown();
+        }
+
+        private void ProcessButtonPress(int buttonId)
+        {
+            switch(Settings1.Default["B" + buttonId + "Action"])
+            {
+                case "none":
+                case "default":
+                    break;
+            }
         }
 
         public void CursorMove()
