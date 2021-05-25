@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -134,6 +136,11 @@ namespace Pointeur_Laser_INSA
             Button b = (Button)this.FindName("keySelectButton_" + tag);
             b.Visibility = is_visible ? Visibility.Visible : Visibility.Hidden;
         }
+        private void UpdateFileSelectButtonVisibility(string tag, Boolean is_visible)
+        {
+            Button b = (Button)this.FindName("fileSelectButton_" + tag);
+            b.Visibility = is_visible ? Visibility.Visible : Visibility.Hidden;
+        }
 
         private void ActionBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -141,6 +148,7 @@ namespace Pointeur_Laser_INSA
             Settings1.Default["B" + comboBox.Tag + "Action"] = comboBox.SelectedValue.ToString();
 
             UpdateKeySelectButtonVisibility(comboBox.Tag.ToString(), comboBox.SelectedValue != null && comboBox.SelectedValue.ToString() == "key");
+            UpdateFileSelectButtonVisibility(comboBox.Tag.ToString(), comboBox.SelectedValue != null && comboBox.SelectedValue.ToString() == "file");
         }
 
         public class ActionData
@@ -242,6 +250,14 @@ namespace Pointeur_Laser_INSA
                         whiteScreen = null;
                     }
                     break;
+                case "file":
+                    ProcessStartInfo processInfo;
+                    Process process;
+                    processInfo = new ProcessStartInfo("cmd.exe", "/c " + Settings1.Default["B" + buttonId + "File"].ToString());
+                    processInfo.CreateNoWindow = true;
+                    processInfo.UseShellExecute = false;
+                    process = Process.Start(processInfo);
+                    break;
                 case "none":
                 case "default":
                     break;
@@ -289,6 +305,24 @@ namespace Pointeur_Laser_INSA
             {
                 deadzoneThread = new Thread(SendDeadzoneUpdate);
                 deadzoneThread.Start();
+            }
+        }
+
+        private void fileSelectButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            Button b = e.Source as Button;
+            b.Content = Win32.PathShortener(Settings1.Default["B" + b.Tag + "File"].ToString(), 40);
+        }
+
+        private void fileSelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = e.Source as Button;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                Settings1.Default["B" + b.Tag + "File"] = openFileDialog.FileName;
+                b.Content = Win32.PathShortener(openFileDialog.FileName, 40);
             }
         }
 

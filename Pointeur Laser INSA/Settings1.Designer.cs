@@ -166,5 +166,65 @@ namespace Pointeur_Laser_INSA {
                 this["Deadzone"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string B1File {
+            get {
+                return ((string)(this["B1File"]));
+            }
+            set {
+                this["B1File"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string B2File {
+            get {
+                return ((string)(this["B2File"]));
+            }
+            set {
+                this["B2File"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string B3File {
+            get {
+                return ((string)(this["B3File"]));
+            }
+            set {
+                this["B3File"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string B4File {
+            get {
+                return ((string)(this["B4File"]));
+            }
+            set {
+                this["B4File"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string B5File {
+            get {
+                return ((string)(this["B5File"]));
+            }
+            set {
+                this["B5File"] = value;
+            }
+        }
     }
 }

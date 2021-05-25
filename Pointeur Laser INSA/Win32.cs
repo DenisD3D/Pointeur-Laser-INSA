@@ -26,5 +26,15 @@ namespace Pointeur_Laser_INSA
                 this.Y = y;
             }
         }
+
+        [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
+        static extern bool PathCompactPathEx([Out] StringBuilder pszOut, string szPath, int cchMax, int dwFlags);
+
+        public static string PathShortener(string path, int length)
+        {
+            StringBuilder sb = new StringBuilder();
+            PathCompactPathEx(sb, path, length, 0);
+            return sb.ToString();
+        }
     }
 }
