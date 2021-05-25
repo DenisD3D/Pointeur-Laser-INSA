@@ -23,14 +23,19 @@ namespace Pointeur_Laser_INSA
         Thread connectThread, cursorThread, deadzoneThread;
         InputSimulator inputSimulator = new InputSimulator();
         int next_X, next_Y;
+        WhiteScreen whiteScreen = null;
 
         public MainWindow()
         {
             InitializeComponent(); 
             ListData.Add(new ActionData { Id = "none", Display = "Aucun" });
+            ListData.Add(new ActionData { Id = "laser_push", Display = "Activer le laser" }); // TODO : on set
+            ListData.Add(new ActionData { Id = "laser_toggle", Display = "Interupteur du laser" }); // TODO : on set
             ListData.Add(new ActionData { Id = "key", Display = "Assigner une touche du clavier" });
-            ListData.Add(new ActionData { Id = "black_screen", Display = "Afficher un écran blanc" });
-            ListData.Add(new ActionData { Id = "file", Display = "Exécuter un script" });
+            ListData.Add(new ActionData { Id = "left_click", Display = "Faire un click gauche" });
+            ListData.Add(new ActionData { Id = "right_click", Display = "Faire un click droit" });
+            ListData.Add(new ActionData { Id = "white_screen", Display = "Afficher un écran blanc" });
+            ListData.Add(new ActionData { Id = "file", Display = "Exécuter un script" }); // TODO : implement
         }
 
         //Home page
@@ -86,6 +91,7 @@ namespace Pointeur_Laser_INSA
                 bluetoothManager.close();
             }
             Settings1.Default.Save();
+            Application.Current.Shutdown();
         }
         
         // Actions setup page
@@ -168,27 +174,42 @@ namespace Pointeur_Laser_INSA
             else if (message == "ILP+B1=0\r")
             {
                 ProcessButtonPress(1);
-                inputSimulator.Keyboard.KeyPress((VirtualKeyCode)Settings1.Default.B1Key);
+            }
+            else if (message == "ILP+B1=1\r")
+            {
+                ProcessButtonRelease(1);
             }
             else if (message == "ILP+B2=0\r")
             {
-                //LinearSmoothMove(new System.Drawing.Point(100, 100), 10);
+                ProcessButtonPress(2);
+            }
+            else if (message == "ILP+B2=1\r")
+            {
+                ProcessButtonRelease(2);
             }
             else if (message == "ILP+B3=0\r")
             {
-                MessageBox.Show("b3 pressed", "BTN pressed", MessageBoxButton.OK, MessageBoxImage.Information);
+                ProcessButtonPress(3);
+            }
+            else if (message == "ILP+B3=1\r")
+            {
+                ProcessButtonRelease(3);
             }
             else if (message == "ILP+B4=0\r")
             {
-                MessageBox.Show("b4 pressed", "BTN pressed", MessageBoxButton.OK, MessageBoxImage.Information);
+                ProcessButtonPress(4);
+            }
+            else if (message == "ILP+B4=1\r")
+            {
+                ProcessButtonRelease(4);
             }
             else if (message == "ILP+B5=0\r")
             {
-                inputSimulator.Mouse.LeftButtonDown();
+                ProcessButtonPress(5);
             }
             else if (message == "ILP+B5=1\r")
             {
-                inputSimulator.Mouse.LeftButtonUp();
+                ProcessButtonRelease(5);
             }
 
             consoleTextBox.Text += message + "\n";
@@ -197,8 +218,48 @@ namespace Pointeur_Laser_INSA
 
         private void ProcessButtonPress(int buttonId)
         {
-            switch(Settings1.Default["B" + buttonId + "Action"])
+            switch (Settings1.Default["B" + buttonId + "Action"])
             {
+                case "key":
+                    inputSimulator.Keyboard.KeyDown((VirtualKeyCode)Settings1.Default["B" + buttonId + "Key"]);
+                    break;
+                case "left_click":
+                    inputSimulator.Mouse.LeftButtonDown();
+                    break;
+                case "right_click":
+                    inputSimulator.Mouse.RightButtonDown();
+                    break;
+                case "white_screen":
+                    if(whiteScreen == null)
+                    {
+                        whiteScreen = new WhiteScreen();
+                        whiteScreen.Closed += (sender, args) => whiteScreen = null;
+                        whiteScreen.Show();
+                    }
+                    else
+                    {
+                        whiteScreen.Close();
+                        whiteScreen = null;
+                    }
+                    break;
+                case "none":
+                case "default":
+                    break;
+            }
+        }
+        private void ProcessButtonRelease(int buttonId)
+        {
+            switch (Settings1.Default["B" + buttonId + "Action"])
+            {
+                case "key":
+                    inputSimulator.Keyboard.KeyUp((VirtualKeyCode)Settings1.Default["B" + buttonId + "Key"]);
+                    break;
+                case "left_click":
+                    inputSimulator.Mouse.LeftButtonUp();
+                    break;
+                case "right_click":
+                    inputSimulator.Mouse.RightButtonUp();
+                    break;
                 case "none":
                 case "default":
                     break;
