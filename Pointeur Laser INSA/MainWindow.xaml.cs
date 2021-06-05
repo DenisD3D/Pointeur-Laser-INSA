@@ -24,22 +24,23 @@ namespace Pointeur_Laser_INSA
         bool connection_validated = false, need_cursor_update = false, deadzone_need_wait = false;
         Thread connectThread, cursorThread, deadzoneThread;
         InputSimulator inputSimulator = new InputSimulator();
-        int next_X, next_Y;
+        int next_X, next_Y, deadzoneValue;
         WhiteScreen whiteScreen = null;
+        bool notrigger;
 
         public MainWindow()
         {
             InitializeComponent(); 
             ListData.Add(new ActionData { Id = "none", Display = "Aucun" });
             ListData.Add(new ActionData { Id = "laser_push", Display = "Activer le laser" }); // TODO : on set
-            ListData.Add(new ActionData { Id = "laser_toggle", Display = "Interupteur du laser" }); // TODO : on set
+            ListData.Add(new ActionData { Id = "laser_toggle", Display = "Interrupteur du laser" }); // TODO : on set
             ListData.Add(new ActionData { Id = "key", Display = "Assigner une touche du clavier" });
-            ListData.Add(new ActionData { Id = "left_click", Display = "Faire un click gauche" });
-            ListData.Add(new ActionData { Id = "right_click", Display = "Faire un click droit" });
+            ListData.Add(new ActionData { Id = "left_click", Display = "Faire un clic gauche" });
+            ListData.Add(new ActionData { Id = "right_click", Display = "Faire un clic droit" });
             ListData.Add(new ActionData { Id = "white_screen", Display = "Afficher un écran blanc" });
             ListData.Add(new ActionData { Id = "file", Display = "Exécuter un script" }); // TODO : implement
         }
-
+        
         //Home page
         private void portComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -84,6 +85,7 @@ namespace Pointeur_Laser_INSA
 
             connectThread = new Thread(Connect);
             connectThread.Start();
+
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -149,6 +151,32 @@ namespace Pointeur_Laser_INSA
 
             UpdateKeySelectButtonVisibility(comboBox.Tag.ToString(), comboBox.SelectedValue != null && comboBox.SelectedValue.ToString() == "key");
             UpdateFileSelectButtonVisibility(comboBox.Tag.ToString(), comboBox.SelectedValue != null && comboBox.SelectedValue.ToString() == "file");
+
+            if (comboBox.SelectedValue != null && (comboBox.SelectedValue.ToString() == "laser_push" || comboBox.SelectedValue.ToString() == "laser_toggle"))
+            {
+                for (int i = 1; i <= 5; i++)
+                {
+                    notrigger = true;
+                    ComboBox target = (ComboBox)FindName("selectActionBox_" + i);
+                    if (comboBox.Tag.ToString() != target.Tag.ToString() && target.SelectedValue != null && (target.SelectedValue.ToString() == "laser_push" || target.SelectedValue.ToString() == "laser_toggle"))
+                    {
+                        ((ComboBox)FindName("selectActionBox_" + i)).SelectedIndex = 0;
+                    }
+                    notrigger = false;
+                }
+
+                if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+                {
+                    bluetoothManager.Write("ILP+UPDATELASER=" + (comboBox.SelectedValue.ToString() == "laser_push" ? "1" : "2") + "," + comboBox.Tag.ToString());
+                }
+            }
+            else if (!notrigger && (e.RemovedItems.Contains(ListData.Find(x => x.Id == "laser_push")) || e.RemovedItems.Contains(ListData.Find(x => x.Id == "laser_toggle"))))
+            {
+                if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
+                {
+                    bluetoothManager.Write("ILP+UPDATELASER=0,0");
+                }
+            }
         }
 
         public class ActionData
@@ -164,6 +192,20 @@ namespace Pointeur_Laser_INSA
             {
                 connection_validated = true;
                 consoleTextBox.Text += "Connection successfull\n";
+
+                bool anySelected = false;
+                for (int i = 1; i <= 5; i++)
+                {
+                    if (Settings1.Default["B" + i + "Action"].ToString() == "laser_push" || Settings1.Default["B" + i + "Action"].ToString() == "laser_toggle")
+                    {
+                        bluetoothManager.Write("ILP+UPDATELASER=" + (Settings1.Default["B" + i + "Action"].ToString() == "laser_push" ? "1" : "2") + "," + i);
+                        anySelected = true;
+                    }
+                }
+                if (!anySelected)
+                {
+                    bluetoothManager.Write("ILP+UPDATELASER=0,0");
+                }
                 return; // Do not log "OK"
             } 
             else if(message.StartsWith("ILP+JOYSTICK"))
@@ -176,7 +218,7 @@ namespace Pointeur_Laser_INSA
                 if (cursorThread == null || !cursorThread.IsAlive)
                 {
                     cursorThread = new Thread(CursorMove);
-                    cursorThread.Start();
+                    //cursorThread.Start(); // TODO : uncomment
                 }
             }
             else if (message == "ILP+B1=0\r")
@@ -293,6 +335,7 @@ namespace Pointeur_Laser_INSA
 
         private void deadzoneSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            deadzoneValue = (int)deadzoneSlider.Value;
             if (Settings1.Default.Deadzone == (int)deadzoneSlider.Value)
                 return;
 
@@ -374,7 +417,9 @@ namespace Pointeur_Laser_INSA
                 bluetoothManager.Write("ILP");
                 Thread.Sleep(2000);
                 if (connection_validated || bluetoothManager == null || !bluetoothManager._continue || !bluetoothManager._serialPort.IsOpen)
+                {
                     return;
+                }
             }
             consoleTextBox.Text += "No answer\n";
         }
@@ -390,7 +435,7 @@ namespace Pointeur_Laser_INSA
 
             if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
             {
-                bluetoothManager.Write("ILP+DEADZONE=" + (int)deadzoneSlider.Value);
+                bluetoothManager.Write("ILP+DEADZONE=" + deadzoneValue);
             }
 
         }

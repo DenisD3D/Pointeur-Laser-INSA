@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Configuration du pointeur laser" Height="450" Width="800" Closing="Window_Closing">
     <TabControl>
-        <TabItem Header="Acceuil">
+        <TabItem Header="Accueil">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="121*"/>
