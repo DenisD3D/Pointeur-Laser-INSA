@@ -32,13 +32,13 @@ namespace Pointeur_Laser_INSA
         {
             InitializeComponent(); 
             ListData.Add(new ActionData { Id = "none", Display = "Aucun" });
-            ListData.Add(new ActionData { Id = "laser_push", Display = "Activer le laser" }); // TODO : on set
-            ListData.Add(new ActionData { Id = "laser_toggle", Display = "Interrupteur du laser" }); // TODO : on set
+            ListData.Add(new ActionData { Id = "laser_push", Display = "Activer le laser" });
+            ListData.Add(new ActionData { Id = "laser_toggle", Display = "Interrupteur du laser" });
             ListData.Add(new ActionData { Id = "key", Display = "Assigner une touche du clavier" });
             ListData.Add(new ActionData { Id = "left_click", Display = "Faire un clic gauche" });
             ListData.Add(new ActionData { Id = "right_click", Display = "Faire un clic droit" });
             ListData.Add(new ActionData { Id = "white_screen", Display = "Afficher un écran blanc" });
-            ListData.Add(new ActionData { Id = "file", Display = "Exécuter un script" }); // TODO : implement
+            ListData.Add(new ActionData { Id = "file", Display = "Exécuter un script" });
         }
         
         //Home page
@@ -76,16 +76,22 @@ namespace Pointeur_Laser_INSA
             if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
             {
                 bluetoothManager.close();
+                consoleTextBox.Text += "Deconnecté du pointeur laser\n";
+                connectButton.Content = " Connecter ";
             }
+            else
+            {
+                string port = "";
+                if (portComboBox.SelectedValue != null) port = portComboBox.SelectedValue.ToString();
+                consoleTextBox.Text = "Tentative de connexion à " + port + "\n";
+                bluetoothManager = new BluetoothManager(port, Dispatcher, onData, onError);
 
-            string port = "";
-            if (portComboBox.SelectedValue != null) port = portComboBox.SelectedValue.ToString();
-            consoleTextBox.Text = "Attempting connection to " + port + "\n";
-            bluetoothManager = new BluetoothManager(port, Dispatcher, onData, onError);
+                connectThread = new Thread(Connect);
+                connectThread.Start();
 
-            connectThread = new Thread(Connect);
-            connectThread.Start();
-
+                connectButton.Content = " Deconnecter ";
+            }
+            
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -218,7 +224,7 @@ namespace Pointeur_Laser_INSA
                 if (cursorThread == null || !cursorThread.IsAlive)
                 {
                     cursorThread = new Thread(CursorMove);
-                    //cursorThread.Start(); // TODO : uncomment
+                    cursorThread.Start();
                 }
             }
             else if (message == "ILP+B1=0\r")
