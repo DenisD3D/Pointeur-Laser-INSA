@@ -76,20 +76,22 @@ namespace Pointeur_Laser_INSA
             if (bluetoothManager != null && bluetoothManager._continue && bluetoothManager._serialPort.IsOpen)
             {
                 bluetoothManager.close();
-                consoleTextBox.Text += "Deconnecté du pointeur laser\n";
+                consoleTextBox.Text += "Déconnecté du pointeur laser\n";
                 connectButton.Content = " Connecter ";
             }
             else
             {
-                string port = "";
-                if (portComboBox.SelectedValue != null) port = portComboBox.SelectedValue.ToString();
-                consoleTextBox.Text = "Tentative de connexion à " + port + "\n";
-                bluetoothManager = new BluetoothManager(port, Dispatcher, onData, onError);
+                if (portComboBox.SelectedValue != null)
+                {
+                    string port = portComboBox.SelectedValue.ToString();
+                    consoleTextBox.Text = "Tentative de connexion à " + port + "\n";
+                    bluetoothManager = new BluetoothManager(port, Dispatcher, onData, onError);
 
-                connectThread = new Thread(Connect);
-                connectThread.Start();
+                    connectThread = new Thread(Connect);
+                    connectThread.Start();
 
-                connectButton.Content = " Deconnecter ";
+                    connectButton.Content = " Déconnecter ";
+                }
             }
             
         }
