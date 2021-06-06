@@ -15,7 +15,7 @@ namespace Pointeur_Laser_INSA
         private Action<string> onData;
         private Action<string> onError;
 
-        public BluetoothManager(string port, System.Windows.Threading.Dispatcher dispatcher, Action<string> onData, Action<string> onError)
+        public BluetoothManager(string port, Dispatcher dispatcher, Action<string> onData, Action<string> onError)
         {
             this.port = port;
             this.dispatcher = dispatcher;
@@ -38,7 +38,6 @@ namespace Pointeur_Laser_INSA
                 _continue = false;
                 dispatcher.Invoke(onError, "Can't connect : " + ex.Message);
             }
-
         }       
 
         public void Read()

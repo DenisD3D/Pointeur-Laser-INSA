@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,7 +64,7 @@ namespace Pointeur_Laser_INSA
             }
         }
 
-        private void portComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void portComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (portComboBox.SelectedValue != null)
                 Settings1.Default.Port = portComboBox.SelectedValue.ToString();
@@ -416,6 +415,7 @@ namespace Pointeur_Laser_INSA
         public void onError(string message)
         {
             MessageBox.Show(message, "An error occured", MessageBoxButton.OK, MessageBoxImage.Error);
+            consoleTextBox.Text += "Error : " + message + "\n";
         }
 
         private void Connect(object obj)
