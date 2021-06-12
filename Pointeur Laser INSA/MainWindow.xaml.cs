@@ -27,9 +27,18 @@ namespace Pointeur_Laser_INSA
         WhiteScreen whiteScreen = null;
         bool notrigger;
 
+
+        private System.Windows.Forms.NotifyIcon m_notifyIcon;
+
         public MainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+
+            m_notifyIcon = new System.Windows.Forms.NotifyIcon();
+            m_notifyIcon.Text = "Télécommande INSA";
+            m_notifyIcon.Icon = new System.Drawing.Icon("trayicon.ico");
+            m_notifyIcon.Click += new EventHandler(m_notifyIcon_Click);
+
             ListData.Add(new ActionData { Id = "none", Display = "Aucun" });
             ListData.Add(new ActionData { Id = "laser_push", Display = "Activer le laser" });
             ListData.Add(new ActionData { Id = "laser_toggle", Display = "Interrupteur du laser" });
@@ -39,7 +48,38 @@ namespace Pointeur_Laser_INSA
             ListData.Add(new ActionData { Id = "white_screen", Display = "Afficher un écran blanc" });
             ListData.Add(new ActionData { Id = "file", Display = "Exécuter un script" });
         }
-        
+
+        private WindowState m_storedWindowState = WindowState.Normal;
+        void OnStateChanged(object sender, EventArgs args)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                Hide();
+            }
+            else
+                m_storedWindowState = WindowState;
+        }
+        void OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs args)
+        {
+            CheckTrayIcon();
+        }
+
+        void m_notifyIcon_Click(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = m_storedWindowState;
+        }
+        void CheckTrayIcon()
+        {
+            ShowTrayIcon(!IsVisible);
+        }
+
+        void ShowTrayIcon(bool show)
+        {
+            if (m_notifyIcon != null)
+                m_notifyIcon.Visible = show;
+        }
+
         //Home page
         private void portComboBox_Loaded(object sender, RoutedEventArgs e)
         {
@@ -103,6 +143,8 @@ namespace Pointeur_Laser_INSA
             }
             Settings1.Default.Save();
             Application.Current.Shutdown();
+            m_notifyIcon.Dispose();
+            m_notifyIcon = null;
         }
         
         // Actions setup page

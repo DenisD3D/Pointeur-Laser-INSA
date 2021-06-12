@@ -5,12 +5,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Pointeur_Laser_INSA</RootNamespace>
     <UseWPF>true</UseWPF>
-    <AssemblyName>Telecomande INSA</AssemblyName>
+	<UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Telecommande INSA</AssemblyName>
     <ApplicationIcon>appicon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="appicon.ico" />
+    <None Remove="trayicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +36,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="appicon.ico" />
+    <Content Include="appicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="trayicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
