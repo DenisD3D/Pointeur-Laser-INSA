@@ -416,6 +416,7 @@ namespace Pointeur_Laser_INSA
         {
             MessageBox.Show(message, "An error occured", MessageBoxButton.OK, MessageBoxImage.Error);
             consoleTextBox.Text += "Error : " + message + "\n";
+            connectButton.Content = " Connecter ";
         }
 
         private void Connect(object obj)

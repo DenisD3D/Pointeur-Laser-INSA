@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="res\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="appicon.ico" />
   </ItemGroup>
 
