@@ -218,8 +218,8 @@ namespace Pointeur_Laser_INSA
             else if(message.StartsWith("ILP+JOYSTICK"))
             {
                 string[] pos = message.Substring(13).Split(",");
-                next_X = int.Parse(pos[0]);
-                next_Y = int.Parse(pos[1]);
+                next_X = int.Parse(pos[1]);
+                next_Y = -int.Parse(pos[0]);
                 need_cursor_update = true;
 
                 if (cursorThread == null || !cursorThread.IsAlive)
@@ -429,7 +429,6 @@ namespace Pointeur_Laser_INSA
                     return;
                 }
             }
-            consoleTextBox.Text += "No answer\n";
         }
 
         private void SendDeadzoneUpdate()
